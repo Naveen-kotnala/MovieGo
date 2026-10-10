@@ -64,48 +64,106 @@ function MovieDetails() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
-  const futureShows = shows.filter((show) => {
-    const showDate = new Date(show.date)
-    showDate.setHours(0, 0, 0, 0)
+  // const futureShows = shows.filter((show) => {
+  //   const showDate = new Date(show.date)
+  //   showDate.setHours(0, 0, 0, 0)
 
-    return showDate >= today
+  //   return showDate >= today
+  // })
+  
+  const futureShows = shows.filter((show) => {
+    const [time, period] = show.time.split(' ')
+    let [hours, minutes] = time.split(':').map(Number)
+
+    if (period === 'PM' && hours !== 12) hours += 12
+    if (period === 'AM' && hours === 12) hours = 0
+
+    const showDate = new Date(show.date)
+    showDate.setHours(hours, minutes, 0, 0)
+
+    return showDate > new Date()
   })
+
 
   const cinemas = [
     ...new Set(futureShows.map((show) => show.cinema)),
   ]
 
- const dates = Array.from({ length: 7 }, (_, index) => {
-  const date = new Date(today)
-  date.setDate(today.getDate() + index)
+//  const dates = Array.from({ length: 7 }, (_, index) => {
+//   const date = new Date(today)
+//   date.setDate(today.getDate() + index)
 
-  const dateValue = date.toISOString().split('T')[0]
+//   const dateValue = date.toISOString().split('T')[0]
 
-  return {
-    value: dateValue,
-    day:
-      index === 0
-        ? 'Today'
-        : date.toLocaleDateString('en-US', {
-            weekday: 'short',
-          }),
-    date: date.getDate(),
-    month: date.toLocaleDateString('en-US', {
-      month: 'short',
-    }),
-  }
-})
+//   return {
+//     value: dateValue,
+//     day:
+//       index === 0
+//         ? 'Today'
+//         : date.toLocaleDateString('en-US', {
+//             weekday: 'short',
+//           }),
+//     date: date.getDate(),
+//     month: date.toLocaleDateString('en-US', {
+//       month: 'short',
+//     }),
+//   }
+// })
 
+
+  const dates = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() + index)
+
+    // Local date use karo, UTC nahi
+    const year = date.getFullYear()
+    const monthNumber = String(date.getMonth() + 1).padStart(2, '0')
+    const dayNumber = String(date.getDate()).padStart(2, '0')
+    const dateValue = `${year}-${monthNumber}-${dayNumber}`
+
+    return {
+      value: dateValue,
+      day:
+        index === 0
+          ? 'Today'
+          : date.toLocaleDateString('en-US', {
+              weekday: 'short',
+            }),
+      date: date.getDate(),
+      month: date.toLocaleDateString('en-US', {
+        month: 'short',
+      }),
+    }
+  })
+
+
+  // const filteredShows = futureShows.filter((show) => {
+  //   const showDate = new Date(show.date)
+  //     .toISOString()
+  //     .split('T')[0]
+
+  //   return (
+  //     show.cinema === selectedCinema &&
+  //     showDate === selectedDate
+  //   )
+  // })
+
+  
   const filteredShows = futureShows.filter((show) => {
     const showDate = new Date(show.date)
-      .toISOString()
-      .split('T')[0]
+
+    // Show ki India/local calendar date nikalo
+    const year = showDate.getFullYear()
+    const month = String(showDate.getMonth() + 1).padStart(2, '0')
+    const day = String(showDate.getDate()).padStart(2, '0')
+    const showDateValue = `${year}-${month}-${day}`
 
     return (
       show.cinema === selectedCinema &&
-      showDate === selectedDate
+      showDateValue === selectedDate
     )
   })
+
 
   const showtimes = [
     ...new Set(filteredShows.map((show) => show.time)),

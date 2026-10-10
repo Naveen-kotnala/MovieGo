@@ -9,9 +9,17 @@ const app = express()
 const movieRoutes = require('./routes/movieRoutes')
 const showRoutes = require('./routes/showRoutes')
 const bookingRoutes = require('./routes/bookingRoutes')
+const startShowScheduler = require('./showScheduler')
 
 
 connectDB()
+  .then(() => {
+    console.log('Starting MovieGo show scheduler...')
+    startShowScheduler()
+  })
+  .catch((error) => {
+    console.error('Database connection failed:', error.message)
+  })
 
 app.use(cors())
 app.use(express.json())
