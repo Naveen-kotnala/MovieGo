@@ -26,7 +26,7 @@ function Payment() {
       }
 
       const response = await fetch(
-        'http://localhost:5000/api/bookings',
+        'https://moviego-backend.onrender.com/api/bookings',
         {
           method: 'POST',
           headers: {

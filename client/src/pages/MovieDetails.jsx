@@ -19,7 +19,7 @@ function MovieDetails() {
     const fetchMovie = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/movies/${id}`
+         `${import.meta.env.VITE_API_URL}/api/movies/${id}`
         )
 
         if (!response.ok) {
@@ -42,7 +42,7 @@ function MovieDetails() {
     const fetchShows = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/shows?movie=${id}`
+          `https://moviego-backend.onrender.com/api/shows?movie=${id}`
         )
 
         if (!response.ok) {

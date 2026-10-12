@@ -12,7 +12,7 @@ function AdminBookings() {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          'http://localhost:5000/api/bookings',
+          'https://moviego-backend.onrender.com/api/bookings',
           {
             headers: {
               Authorization: `Bearer ${token}`,

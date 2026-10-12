@@ -24,8 +24,8 @@ function AdminEditShow() {
     const fetchData = async () => {
       try {
         const [showResponse, moviesResponse] = await Promise.all([
-          fetch(`http://localhost:5000/api/shows/${id}`),
-          fetch('http://localhost:5000/api/movies'),
+          fetch(`https://moviego-backend.onrender.com/api/shows/${id}`),
+          fetch('https://moviego-backend.onrender.com/api/movies'),
         ])
 
         const showData = await showResponse.json()
@@ -82,7 +82,7 @@ function AdminEditShow() {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        `http://localhost:5000/api/shows/${id}`,
+        `https://moviego-backend.onrender.com/api/shows/${id}`,
         {
           method: 'PUT',
           headers: {

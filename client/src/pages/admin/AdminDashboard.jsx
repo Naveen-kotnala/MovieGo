@@ -38,10 +38,10 @@ function AdminDashboard() {
 
     const [moviesResponse, showsResponse, bookingsResponse, usersResponse] =
       await Promise.all([
-        fetch('http://localhost:5000/api/movies'),
-        fetch('http://localhost:5000/api/shows'),
-        fetch('http://localhost:5000/api/bookings', { headers }),
-        fetch('http://localhost:5000/api/auth/users', { headers }),
+        fetch('https://moviego-backend.onrender.com/api/movies'),
+        fetch('https://moviego-backend.onrender.com/api/shows'),
+        fetch('https://moviego-backend.onrender.com/api/bookings', { headers }),
+        fetch('https://moviego-backend.onrender.com/api/auth/users', { headers }),
       ])
 
     const movies = await moviesResponse.json()

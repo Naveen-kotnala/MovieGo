@@ -22,7 +22,7 @@ function AdminAddShow() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/movies')
+        const response = await fetch('https://moviego-backend.onrender.com/api/movies')
         const data = await response.json()
 
         if (!response.ok) {
@@ -58,7 +58,7 @@ function AdminAddShow() {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        'http://localhost:5000/api/shows',
+        'https://moviego-backend.onrender.com/api/shows',
         {
           method: 'POST',
           headers: {

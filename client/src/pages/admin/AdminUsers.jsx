@@ -12,7 +12,7 @@ function AdminUsers() {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          'http://localhost:5000/api/auth/users',
+          'https://moviego-backend.onrender.com/api/auth/users',
           {
             headers: {
               Authorization: `Bearer ${token}`,

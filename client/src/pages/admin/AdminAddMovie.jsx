@@ -39,7 +39,7 @@ function AdminAddMovie() {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        'http://localhost:5000/api/movies',
+        'https://moviego-backend.onrender.com/api/movies',
         {
           method: 'POST',
           headers: {
